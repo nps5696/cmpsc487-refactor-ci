@@ -21,29 +21,28 @@ jobs:
     - name: Install dependencies
       run: pip install -r requirements.txt 
 
-    - name: Run pylint
+    - name: Analysing the code with pydoc
       run: |
-        pylint dl_lists.py  # Replace 'your_module_or_directory' with your actual Python module or directory
-        pylint_exit_code=$?
-        if [ $pylint_exit_code -lt 80 ]; then
-          echo "Pylint found issues, failing the build."
-          exit 1
-        fi
+        python -m doctest $(git ls-files '*.py')
+
+    - name: Analysing the code with pylint
+      run: |
+        pylint  --fail-under=8 $(git ls-files '*.py')
 
     - name: Run pytest and generate coverage report
       run: |
         pytest --cov=dl_lists --cov-fail-under=80 
       env:
-        CI: true  # This ensures pytest captures coverage data correctly
+        CI: true 
 
-    - name: Upload coverage report to Codecov
-      run: bash <(curl -s https://codecov.io/bash) -f coverage.xml  # You can adjust the filename if necessary
-      env:
-        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}  # You need to set up a secret in your GitHub repository with the Codecov token
+          #    - name: Upload coverage report to Codecov
+          #      run: bash <(curl -s https://codecov.io/bash) -f coverage.xml  # You can adjust the filename if necessary
+          #      env:
+          #        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}  # You need to set up a secret in your GitHub repository with the Codecov token
 
     - name: Upload test artifacts
       uses: actions/upload-artifact@v2
       with:
         name: test-results
-        path: test-results  # Replace with the path to your test results directory, if applicable
+        path: test-results 
 
