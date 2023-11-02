@@ -3,7 +3,7 @@ name: Python Test and Code Coverage
 on:
   push:
     branches:
-      - main  # You can specify the branch you want to trigger the workflow on
+      - main  
 
 jobs:
   build:
@@ -16,14 +16,14 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.9  # Replace 'x' with the Python version you are using
+        python-version: 3.9  
 
     - name: Install dependencies
-      run: pip install -r requirements.txt  # Replace with the path to your requirements file
+      run: pip install -r requirements.txt 
 
     - name: Run pylint
       run: |
-        pylint your_module_or_directory  # Replace 'your_module_or_directory' with your actual Python module or directory
+        pylint dl_lists.py  # Replace 'your_module_or_directory' with your actual Python module or directory
         pylint_exit_code=$?
         if [ $pylint_exit_code -ne 0 ]; then
           echo "Pylint found issues, failing the build."
@@ -32,7 +32,7 @@ jobs:
 
     - name: Run pytest and generate coverage report
       run: |
-        pytest --cov=your_module_or_directory --cov-fail-under=80  # Replace 'your_module_or_directory' with your actual Python module or directory, and adjust the coverage threshold as needed
+        pytest --cov=dl_lists --cov-fail-under=80 
       env:
         CI: true  # This ensures pytest captures coverage data correctly
 
@@ -46,6 +46,4 @@ jobs:
       with:
         name: test-results
         path: test-results  # Replace with the path to your test results directory, if applicable
-
-# Add any additional steps or customizations as needed.
 
