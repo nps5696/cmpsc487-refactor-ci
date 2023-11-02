@@ -1,19 +1,23 @@
-# ### Doubly Linked List
-#
-# The purpose of this assignment is to make you familiar with implementing a data structure in Python in an object oriented way.
-# During lectures we implemented a few simple linear data structres: queue, list, deques, stacks. Now we expect you to implement one of these structures yourself.
+"""
+lists.py
+This Doubly Linked List module contains functions related to lists.
+"""
+
+# The purpose of this assignment is to make you familiar with implementing a data structure in Python in an object-oriented way.
+# During, lectures we implemented a few simple linear data structures: queue, list, dequeues, stacks. Now we expect you to implement one of these structures yourself.
 #
 # You are provided with two classes: **Node** and **DoublyLinkedList**. The first one is already implemented (you don't need to modify it), the second one consist only a structure of empty methods defined. Your task is to come up with an implementation of these methods.
 #
 # _Note_: If a list is doubly linked, each node contains a reference to the _previous_ node in the chain and a reference to the _next_ node.
 #
 # You are expected to implement every function in DoublyLinkedList. Including the *next()* function, which is used by an iterator object in python. The *map(func)* function applies a function to every element in the list.
-# All other functions are available in the PSADS book.
+# All other functions are available in a book.
 
 # ## Constructing a Doubly Linked List
 #
 # The **Node** class implementation is already given:
 import doctest
+
 
 class Node(object):
     """Doubly linked node which stores an object"""
@@ -77,13 +81,12 @@ class DoublyLinkedList(object):
         """Standard python iterator method"""
         if self.is_empty() or self.__current == self.__trailer:
             raise StopIteration()
-        elif self.__current is None:
+        if self.__current is None:
             self.__current = self.__header
         self.__current = self.__current.get_next()
         if self.__current != self.__trailer:
             return self.__current
-        else:
-            raise StopIteration()
+        raise StopIteration()
 
     def map(self, function):
         """Run function on every element in the list"""
