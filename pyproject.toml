@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "dl-lists"
+version = "0.1.0"
+description = "Refactor and Test doubly linked lists source file"
+authors = ["nps5696 <nps5696@psu.edu>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
